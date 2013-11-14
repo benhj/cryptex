@@ -121,7 +121,7 @@ namespace cryptex
                 prepareTEAKey(key);
                 detail::convertBytesAndEncipher(m_rounds, &m_eightByteBlock.front(), &m_teaKey.front());
                 out.write(reinterpret_cast<char*>(&m_eightByteBlock.front()), 8);
-                Bytes.swap(m_eightByteBlock);
+                m_eightByteBlock.clear();
                 m_origDataLength += 8;
             }
         }
@@ -147,7 +147,7 @@ namespace cryptex
                 detail::convertBytesAndEncipher(m_rounds, &m_eightByteBlock.front(), &m_teaKey.front());
                 out.write(reinterpret_cast<char*>(&m_eightByteBlock.front()), 8);
             }
-            Bytes.swap(m_eightByteBlock);
+            m_eightByteBlock.clear();
         }
 
         /**
@@ -224,7 +224,7 @@ namespace cryptex
         void prepareTEAKey(std::string const &key) const
         {
             unsigned char dat[4];
-            TeaKey.swap(m_teaKey);
+            m_teaKey.clear();
             generateKey(key, dat);
             uint32_t *k1 = reinterpret_cast<uint32_t*>(dat);
             m_teaKey.push_back(*k1);
