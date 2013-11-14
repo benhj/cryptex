@@ -189,7 +189,7 @@ namespace cryptex
                 //
                 checkAndWriteOutBufferWindow(out);
 
-                m_eightByteBlock.clear();
+                Bytes().swap(m_eightByteBlock);
             }
         }
 
@@ -234,7 +234,7 @@ namespace cryptex
         void prepareTEAKey(std::string const &key) const
         {
             unsigned char dat[4];
-            m_teaKey.clear();
+            TeaKey().swap(m_teaKey);
             generateKey(key, dat);
             uint32_t *k1 = reinterpret_cast<uint32_t*>(dat);
             m_teaKey.push_back(*k1);
